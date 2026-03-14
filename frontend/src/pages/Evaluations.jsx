@@ -11,7 +11,7 @@ const Evaluations = () => {
   const fetchEvaluations = async (roll = '') => {
     setLoading(true);
     try {
-      const res = await axios.get(`http://localhost:5000/api/evaluations/search?roll=${roll}`);
+      const res = await axios.get(`http://10.88.42.48:5000/api/evaluations/search?roll=${roll}`);
       setResults(res.data);
     } catch (err) {
       console.error("Audit fetch failed:", err);
@@ -25,7 +25,7 @@ const Evaluations = () => {
       alert("Exam ID not found.");
       return;
     }
-    window.open(`http://localhost:5000/api/download-report/${examId}`, '_blank');
+    window.open(`http://10.88.42.48:5000/api/download-report/${examId}`, '_blank');
   };
 
   useEffect(() => {

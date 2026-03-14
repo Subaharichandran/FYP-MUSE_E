@@ -12,7 +12,7 @@ const StudentDashboard = ({ user, onLogout }) => {
 
   // -------- FETCH ACTIVE EXAMS --------
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/exams?studentId=${user.id}`)
+    axios.get(`http://10.88.42.48:5000/api/exams?studentId=${user.id}`)
       .then(res => {
         setExams(res.data || []);
       })
@@ -37,12 +37,12 @@ const StudentDashboard = ({ user, onLogout }) => {
     formData.append('examId', selectedExamId);
 
     try {
-      await axios.post('http://localhost:5000/api/upload-script', formData);
+      await axios.post('http://10.88.42.48:5000/api/upload-script', formData);
       alert("Answer Script Uploaded Successfully!");
 
       // 🔥 refresh exams
       const res = await axios.get(
-        `http://localhost:5000/api/exams?studentId=${user.id}`
+        `http://10.88.42.48:5000/api/exams?studentId=${user.id}`
       );
       setExams(res.data);
       setSelectedExamId(null);

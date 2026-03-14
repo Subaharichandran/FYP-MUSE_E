@@ -53,7 +53,7 @@ const CreateExam = ({ user }) => {
 
     try {
       await axios.post(
-        'http://localhost:5000/api/create-exam-full',
+        'http://10.88.42.48:5000/api/create-exam-full',
         payload
       );
       alert("Exam Portal Deployed Successfully!");

@@ -10,7 +10,7 @@ const BatchUpload = ({ user }) => {
 
   useEffect(() => {
     // Fetch exams to populate the dropdown
-    axios.get('http://localhost:5000/api/exams')
+    axios.get('http://10.88.42.48:5000/api/exams')
       .then(res => setExams(res.data))
       .catch(err => console.error(err));
   }, []);
@@ -23,7 +23,7 @@ const BatchUpload = ({ user }) => {
 
     try {
       // Trigger the AI Evaluation route in your app.py
-      const res = await axios.post(`http://localhost:5000/api/evaluate/${selectedExam}`);
+      const res = await axios.post(`http://10.88.42.48:5000/api/evaluate/${selectedExam}`);
       setStatus('completed');
       alert(res.data.message);
     } catch (err) {

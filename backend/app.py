@@ -778,5 +778,5 @@ def download_report(submission_id):
     return send_file(buffer, as_attachment=True, download_name=f"Marksheet_{user.roll_number}.pdf", mimetype='application/pdf')
 
 # ---------------- START SERVER ----------------
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)

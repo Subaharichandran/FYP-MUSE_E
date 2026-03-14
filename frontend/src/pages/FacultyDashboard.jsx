@@ -55,8 +55,8 @@ const FacultyDashboard = () => {
   const fetchDashboardData = async () => {
   try {
     const [statsRes, examsRes] = await Promise.all([
-      axios.get('http://localhost:5000/api/teacher-stats'),
-      axios.get('http://localhost:5000/api/faculty/exams')
+      axios.get('http://10.88.42.48:5000/api/teacher-stats'),
+      axios.get('http://10.88.42.48:5000/api/faculty/exams')
     ]);
 
     setStats(statsRes.data);
@@ -78,7 +78,7 @@ const FacultyDashboard = () => {
   const triggerEvaluation = async (examId) => {
     setEvaluatingId(examId); // Start loading for this specific ID
     try {
-      const res = await axios.post(`http://localhost:5000/api/evaluate/${examId}`);
+      const res = await axios.post(`http://10.88.42.48:5000/api/evaluate/${examId}`);
       alert(res.data.message);
       // Refresh stats after evaluation is complete
       fetchDashboardData();

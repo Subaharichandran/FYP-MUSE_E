@@ -13,7 +13,7 @@ const Results = ({ user }) => {
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/student-results/${user.id}`);
+        const res = await axios.get(`http://10.88.42.48:5000/api/student-results/${user.id}`);
         setResults(res.data);
       } catch (err) {
         console.error("Error fetching results", err);
@@ -31,7 +31,7 @@ const Results = ({ user }) => {
       return;
     }
     // Triggers the download from the Flask route you created
-    window.open(`http://localhost:5000/api/download-report/${submissionId}`, '_blank');
+    window.open(`http://10.88.42.48:5000/api/download-report/${submissionId}`, '_blank');
   };
 
   // Filtering Logic
