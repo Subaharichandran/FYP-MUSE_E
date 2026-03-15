@@ -258,7 +258,7 @@ import os
 import json
 import base64
 from datetime import datetime
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify, send_file, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
@@ -777,6 +777,18 @@ def download_report(submission_id):
     buffer.seek(0)
     return send_file(buffer, as_attachment=True, download_name=f"Marksheet_{user.roll_number}.pdf", mimetype='application/pdf')
 
+# ---------------- SERVE UPLOADED FILES ----------------
+
+@app.route('/api/files/<folder>/<filename>', methods=['GET'])
+def get_uploaded_file(folder, filename):
+    # This allows students on other devices to download the question paper
+    if folder == "question_papers":
+        return send_from_directory(app.config['UPLOAD_QP_FOLDER'], filename)
+    elif folder == "submissions":
+        return send_from_directory(app.config['STUDENT_UPLOADS'], filename)
+    else:
+        return jsonify({"message": "Invalid folder request"}), 400
+    
 # ---------------- START SERVER ----------------
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
