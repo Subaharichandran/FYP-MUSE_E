@@ -40,12 +40,15 @@ const CreateExam = ({ user }) => {
     reader.readAsDataURL(file);
   };
 
-  const handleDeploy = async (e) => {
+const handleDeploy = async (e) => {
     e.preventDefault();
     setIsDeploying(true);
 
+    // Convert the raw string into a proper timezone-aware ISO string
     const payload = {
       ...examData,
+      startTime: new Date(examData.startTime).toISOString(),
+      endTime: new Date(examData.endTime).toISOString(),
       teacherId: user.id,
       questionPaper: questionPaper, // REQUIRED
       answerKey: answerKey           // OPTIONAL
