@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Upload, Play, CheckCircle, Loader2, FileArchive, AlertCircle } from 'lucide-react';
+const API_URL = import.meta.env.VITE_API_URL || 'http://10.88.42.48:5000/api';
 
 const BatchUpload = ({ user }) => {
   const [exams, setExams] = useState([]);
@@ -8,9 +9,9 @@ const BatchUpload = ({ user }) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [status, setStatus] = useState('idle'); // idle, uploading, processing, completed
 
-  useEffect(() => {
+ useEffect(() => {
     // Fetch exams to populate the dropdown
-    axios.get('http://10.88.42.48:5000/api/exams')
+    axios.get(`${API_URL}/exams`)
       .then(res => setExams(res.data))
       .catch(err => console.error(err));
   }, []);
@@ -21,9 +22,9 @@ const BatchUpload = ({ user }) => {
     setIsProcessing(true);
     setStatus('processing');
 
-    try {
+   try {
       // Trigger the AI Evaluation route in your app.py
-      const res = await axios.post(`http://10.88.42.48:5000/api/evaluate/${selectedExam}`);
+      const res = await axios.post(`${API_URL}/evaluate/${selectedExam}`);
       setStatus('completed');
       alert(res.data.message);
     } catch (err) {

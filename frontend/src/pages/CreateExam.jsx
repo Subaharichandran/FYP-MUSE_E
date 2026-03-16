@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { BookOpen, Send, Clock, Upload, FileText } from 'lucide-react';
-
+const API_URL = import.meta.env.VITE_API_URL || 'http://10.88.42.48:5000/api';
 const CreateExam = ({ user }) => {
   const [examData, setExamData] = useState({
     title: '',
@@ -51,9 +51,9 @@ const CreateExam = ({ user }) => {
       answerKey: answerKey           // OPTIONAL
     };
 
-    try {
+   try {
       await axios.post(
-        'http://10.88.42.48:5000/api/create-exam-full',
+        `${API_URL}/create-exam-full`,
         payload
       );
       alert("Exam Portal Deployed Successfully!");

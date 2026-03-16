@@ -3,7 +3,7 @@ import axios from 'axios';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import { Search, Filter, Download, FileCheck, Info, Award, BarChart3, FileText } from 'lucide-react';
-
+const API_URL = import.meta.env.VITE_API_URL || 'http://10.88.42.48:5000/api';
 const Results = ({ user }) => {
   const [results, setResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -13,7 +13,7 @@ const Results = ({ user }) => {
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        const res = await axios.get(`http://10.88.42.48:5000/api/student-results/${user.id}`);
+        const res = await axios.get(`${API_URL}/student-results/${user.id}`);
         setResults(res.data);
       } catch (err) {
         console.error("Error fetching results", err);
@@ -31,7 +31,7 @@ const Results = ({ user }) => {
       return;
     }
     // Triggers the download from the Flask route you created
-    window.open(`http://10.88.42.48:5000/api/download-report/${submissionId}`, '_blank');
+    window.open(`${API_URL}/download-report/${submissionId}`, '_blank');
   };
 
   // Filtering Logic

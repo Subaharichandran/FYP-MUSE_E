@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Book, GraduationCap, LogOut, Calendar, FileText } from 'lucide-react';
 import Results from './Results'; 
+const API_URL = import.meta.env.VITE_API_URL || 'http://10.88.42.48:5000/api';
 
 const StudentDashboard = ({ user, onLogout }) => {
   const [exams, setExams] = useState(null); // null = loading
@@ -12,7 +13,7 @@ const StudentDashboard = ({ user, onLogout }) => {
 
   // -------- FETCH ACTIVE EXAMS --------
   useEffect(() => {
-    axios.get(`http://10.88.42.48:5000/api/exams?studentId=${user.id}`)
+    axios.get(`${API_URL}/exams?studentId=${user.id}`)
       .then(res => {
         setExams(res.data || []);
       })
@@ -37,12 +38,12 @@ const StudentDashboard = ({ user, onLogout }) => {
     formData.append('examId', selectedExamId);
 
     try {
-      await axios.post('http://10.88.42.48:5000/api/upload-script', formData);
+      await axios.post(`${API_URL}/upload-script`, formData);
       alert("Answer Script Uploaded Successfully!");
 
       // 🔥 refresh exams
-      const res = await axios.get(
-        `http://10.88.42.48:5000/api/exams?studentId=${user.id}`
+     const res = await axios.get(
+        `${API_URL}/exams?studentId=${user.id}`
       );
       setExams(res.data);
       setSelectedExamId(null);

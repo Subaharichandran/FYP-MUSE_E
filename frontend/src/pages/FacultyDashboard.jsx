@@ -20,6 +20,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+const API_URL = import.meta.env.VITE_API_URL || 'http://10.88.42.48:5000/api';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -54,9 +55,9 @@ const FacultyDashboard = () => {
   // };
   const fetchDashboardData = async () => {
   try {
-    const [statsRes, examsRes] = await Promise.all([
-      axios.get('http://10.88.42.48:5000/api/teacher-stats'),
-      axios.get('http://10.88.42.48:5000/api/faculty/exams')
+   const [statsRes, examsRes] = await Promise.all([
+      axios.get(`${API_URL}/teacher-stats`),
+      axios.get(`${API_URL}/faculty/exams`)
     ]);
 
     setStats(statsRes.data);
@@ -78,7 +79,7 @@ const FacultyDashboard = () => {
   const triggerEvaluation = async (examId) => {
     setEvaluatingId(examId); // Start loading for this specific ID
     try {
-      const res = await axios.post(`http://10.88.42.48:5000/api/evaluate/${examId}`);
+      const res = await axios.post(`${API_URL}/evaluate/${examId}`);
       alert(res.data.message);
       // Refresh stats after evaluation is complete
       fetchDashboardData();

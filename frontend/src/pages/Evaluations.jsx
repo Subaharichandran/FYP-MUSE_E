@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Search, Filter, Eye, Download, UserCheck, ShieldCheck, X, FileText, ClipboardList } from 'lucide-react';
+const API_URL = import.meta.env.VITE_API_URL || 'http://10.88.42.48:5000/api';
 
 const Evaluations = () => {
   const [results, setResults] = useState([]);
@@ -11,7 +12,7 @@ const Evaluations = () => {
   const fetchEvaluations = async (roll = '') => {
     setLoading(true);
     try {
-      const res = await axios.get(`http://10.88.42.48:5000/api/evaluations/search?roll=${roll}`);
+      const res = await axios.get(`${API_URL}/evaluations/search?roll=${roll}`);
       setResults(res.data);
     } catch (err) {
       console.error("Audit fetch failed:", err);
@@ -25,7 +26,7 @@ const Evaluations = () => {
       alert("Exam ID not found.");
       return;
     }
-    window.open(`http://10.88.42.48:5000/api/download-report/${examId}`, '_blank');
+    window.open(`${API_URL}/download-report/${examId}`, '_blank');
   };
 
   useEffect(() => {
