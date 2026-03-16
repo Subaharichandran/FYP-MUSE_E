@@ -253,14 +253,13 @@
 
 
 
-
+from flask_cors import CORS
 import os
 import json
 import base64
 from datetime import datetime
 from flask import Flask, request, jsonify, send_file, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
@@ -276,7 +275,7 @@ from datetime import datetime, timezone
 
 # ---------------- APP SETUP ----------------
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
 UPLOAD_QP_FOLDER = "uploads/question_papers"
 
